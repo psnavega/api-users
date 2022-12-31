@@ -1,10 +1,8 @@
-import express from 'express';
-import '@controllers/UserController';
+import 'dotenv/config';
+import app from './app/index';
 
-const app = express();
+const {PORT} = process.env;
 
-app.get('/', (req, res) => {
-    return res.json({message: 'Hello world'})
-})
-
-app.listen(3000);
+app.listen(PORT, () => {
+	console.log(`listening port ${PORT}`);
+});
