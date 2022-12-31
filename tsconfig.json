@@ -19,10 +19,12 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@controllers/*": ["./src/controllers/*"],
-      "@models/*": ["./src/models/*"],
-      "@services/*": ["./src/services/*"],
-      "@configs/*": ["./src/configs/*"]
+      "@controllers/*": ["./src/app/controllers/*"],
+      "@models/*": ["./src/app/models/*"],
+      "@services/*": ["./src/app/services/*"],
+      "@configs/*": ["./src/app/configs/*"],
+      "@routes/*": ["./src/app/routes/*"],
+      "@daos/*" : ["./src/app/daos/*"]
     }                                 
   },
   "include": [
