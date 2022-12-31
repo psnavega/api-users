@@ -24,5 +24,8 @@
       "@services/*": ["./src/services/*"],
       "@configs/*": ["./src/configs/*"]
     }                                 
-  }
+  },
+  "include": [
+    "src/**/*"
+  ]
 }
