@@ -18,7 +18,8 @@ module.exports = {
         '@controllers': './src/app/controllers',
         '@daos': './src/app/daos',
         '@routes': './src/app/routes',
-        '@services': './src/app/services'
+        '@services': './src/app/services',
+        "@errors/*": ["./src/app/errors/*"]
       }
     }]
   ],
