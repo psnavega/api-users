@@ -1,5 +1,5 @@
 class RequestError {
-    private error: Error;
+    private error: Error | null;
 
     public statusCode: number;
 
