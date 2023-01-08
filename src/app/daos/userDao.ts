@@ -1,5 +1,5 @@
 import userModel from "@models/userModel";
-import { IUser } from "../interfaces/user.interface";
+import { IUser } from "../interfaces/userInterface";
 
 export async function getUsersDao(): Promise<IUser[]>  {
     try{
