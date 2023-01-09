@@ -1,4 +1,4 @@
-import connectToMongoDb from './databases/mongo';
+import {connectToMongoDb} from './databases/mongo';
 import appMiddlewares from './middlewares/index';
 import type {Express} from 'express';
 
