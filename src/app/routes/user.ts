@@ -13,7 +13,7 @@ router
     .get('/users', getUsersController)
     .get('/user/:id', getUserController)
     .post('/user', postUserController)
-    .patch('/user', patchUserController)
-    .delete('/user', deleteUserController)
+    .patch('/user/:id', patchUserController)
+    .delete('/user/:id', deleteUserController)
 
 export default router;
