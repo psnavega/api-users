@@ -8,9 +8,8 @@ export async function getUsersDao(): Promise<IUser[]>  {
         const result = await userModel.find({});
 
         return result;
-    } catch(e) {
-        console.log(e);
-        throw new RequestError(e);
+    } catch(error: unknown) {
+        throw new RequestError(error);
     }
 }
 
@@ -19,8 +18,7 @@ export async function getUserDao({id}: {id: string}): Promise<any> {
         const result = await userModel.findById(id);
 
         return result;
-    } catch(e) {
-        console.log(e);
+    } catch(e: unknown) {
         throw new RequestError(e);
     }
 }
@@ -43,9 +41,8 @@ export async function postUserDao(
         await newUser.save();
 
         return newUser;
-    } catch(e) {
-        console.log(e);
-        throw new RequestError(e);
+    } catch(error: unknown) {
+        throw new RequestError(error);
     }
 }
 
@@ -73,9 +70,8 @@ export async function patchUserDao(
         const result = await userModel.findByIdAndUpdate(id, data);
 
         return result;
-    } catch(e) {
-        console.log(e);
-        throw new RequestError(e);
+    } catch(error: unknown) {
+        throw new RequestError(error);
     }
 }
 
@@ -84,8 +80,7 @@ export async function deleteUserDao({id}: {id: string}): Promise<IUser>{
         const result = await userModel.findByIdAndDelete(id);
 
         return result;
-    } catch (e) {
-        console.log(e);
-        throw new RequestError(e);
+    } catch (error: unknown) {
+        throw new RequestError(error);
     }
 }

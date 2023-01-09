@@ -15,9 +15,8 @@ export async function getUserService({id}: {id: string}): Promise<IUser> {
         if(!result) throw new RequestError({message: 'User not found', statusCode: 409});
 
         return result;
-    } catch(e) {
-        console.log(e);
-        throw new RequestError(e);
+    } catch(error: unknown) {
+        throw error as RequestError;
     }
 }
 
@@ -27,9 +26,8 @@ export async function getUsersService(): Promise<IUser[]> {
         const result = await getUsersDao();
 
         return result;
-    } catch(e) {
-        console.log(e);
-        throw new RequestError(e);
+    } catch(error: unknown) {
+        throw error as RequestError;
     }
 }
 
@@ -55,9 +53,8 @@ export async function postUserService(
         });
 
         return result;
-    } catch(e) {
-        console.log(e);
-        throw new RequestError(e);
+    } catch(error: unknown) {
+        throw error as RequestError;
     }
 }
 
@@ -88,9 +85,8 @@ export async function patchUserservice(
         if(!result) throw new RequestError({message: 'User not found', statusCode: 409});
 
         return result;
-    } catch(e) {
-        console.log(e);
-        throw new RequestError(e);
+    } catch(error: unknown) {
+        throw error as RequestError;
     }
 }
 
@@ -99,8 +95,7 @@ export async function deleteUserService({id}: {id: string}): Promise<IUser> {
         const result = await deleteUserDao({id});
 
         return result;
-    } catch (e) {
-        console.log(e);
-        throw new RequestError(e);
+    } catch (error: unknown) {
+        throw error as RequestError;
     }
 }
