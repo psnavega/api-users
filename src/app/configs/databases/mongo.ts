@@ -1,10 +1,10 @@
-import mongoose from 'mongoose';
+import mongoose, { ConnectOptions } from 'mongoose';
 
 const mongoURI = process.env.MONGO_URI;
 
-export default async function connectToMongoDb(): Promise<void> {
+export async function connectToMongoDb(): Promise<void> {
 	try {
-		await mongoose.connect(mongoURI);
+		await mongoose.connect(`${mongoURI}`, options as ConnectOptions);
 
 		console.log('Mongo - Connected successfully');
 	} catch (e: unknown) {
