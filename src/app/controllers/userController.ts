@@ -32,11 +32,16 @@ export async function getUserController(req: Request, res: Response): Promise<Re
 
 export async function postUserController(req: Request, res: Response): Promise<Response> {
     try{
-        const {name, dob, add, description} = req.body;
+        const {
+            name,
+            dob,
+            add,
+            description
+        } = req.body;
 
+        const dateParsedAndFormated: string = new Date(dob).toLocaleDateString();
 
-
-        const result: IUser = await postUserService({name, dob, add, description});
+        const result: IUser = await postUserService({name, dob: dateParsedAndFormated, add, description});
 
         return res.status(200).send({result});
     } catch(error) {

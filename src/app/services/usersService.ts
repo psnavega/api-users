@@ -94,6 +94,8 @@ export async function deleteUserService({id}: {id: string}): Promise<IUser> {
     try{
         const result = await deleteUserDao({id});
 
+        if(!result) throw new RequestError({message: 'User not found', statusCode: 409});
+
         return result;
     } catch (error: unknown) {
         throw error as RequestError;
