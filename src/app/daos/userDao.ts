@@ -1,5 +1,7 @@
 import userModel from "@models/userModel";
 import { IUser } from "../interfaces/userInterface";
+import { RequestError } from "@errors/RequestError";
+import mongoose from "mongoose";
 
 export async function getUsersDao(): Promise<IUser[]>  {
     try{
@@ -8,18 +10,18 @@ export async function getUsersDao(): Promise<IUser[]>  {
         return result;
     } catch(e) {
         console.log(e);
-        throw e;
+        throw new RequestError(e);
     }
 }
 
-export async function getUserDao({id}: {id: string}): Promise<IUser> {
+export async function getUserDao({id}: {id: string}): Promise<any> {
     try{
-        const result = await userModel.findById({id});
+        const result = await userModel.findById(id);
 
         return result;
     } catch(e) {
         console.log(e);
-        throw e;
+        throw new RequestError(e);
     }
 }
 
@@ -43,51 +45,47 @@ export async function postUserDao(
         return newUser;
     } catch(e) {
         console.log(e);
-        throw e;
+        throw new RequestError(e);
     }
 }
 
 export async function patchUserDao(
     {
         id,
-    },
-    {
         name,
         dob,
         add,
         description,
     }: {
+        id: string,
         name?: string,
         dob?: string,
         add?: string,
         description?: string,
 }): Promise<IUser> {
     try{
-        const result = await userModel.findByIdAndUpdate(
-            {
-                id
-            },
-            {
-                name,
-                dob,
-                add,
-                description
-            }
-        )
+        const data = {
+            name,
+            dob,
+            add,
+            description
+        }
+        const result = await userModel.findByIdAndUpdate(id, data);
+
         return result;
     } catch(e) {
         console.log(e);
-        throw e;
+        throw new RequestError(e);
     }
 }
 
 export async function deleteUserDao({id}: {id: string}): Promise<IUser>{
     try{
-        const result = await userModel.findByIdAndDelete({id});
+        const result = await userModel.findByIdAndDelete(id);
 
         return result;
     } catch (e) {
         console.log(e);
-        throw e;
+        throw new RequestError(e);
     }
 }
