@@ -5,16 +5,19 @@ import {
     deleteUserDao,
     patchUserDao
 } from "@daos/userDao";
+import { RequestError } from "@errors/RequestError";
 import { IUser } from "../interfaces/userInterface";
 
 export async function getUserService({id}: {id: string}): Promise<IUser> {
     try{
         const result = await getUserDao({id});
 
+        if(!result) throw new RequestError({message: 'User not found', statusCode: 409});
+
         return result;
     } catch(e) {
         console.log(e);
-        throw(e);
+        throw new RequestError(e);
     }
 }
 
@@ -26,7 +29,7 @@ export async function getUsersService(): Promise<IUser[]> {
         return result;
     } catch(e) {
         console.log(e);
-        throw(e);
+        throw new RequestError(e);
     }
 }
 
@@ -54,41 +57,40 @@ export async function postUserService(
         return result;
     } catch(e) {
         console.log(e);
-        throw(e);
+        throw new RequestError(e);
     }
 }
 
 export async function patchUserservice(
     {
-        id
-    },
-    {
+        id,
         name,
         dob,
         add,
         description,
     }: {
-        name: string,
-        dob: string,
-        add: string,
-        description: string,
+        id: string,
+        name?: string,
+        dob?: string,
+        add?: string,
+        description?: string,
     }
 ): Promise<IUser> {
     try{
-        const result = await patchUserDao(
-        {
-            id
-        }, {
+        const result = await patchUserDao({
+            id,
             name,
             dob,
             description,
             add,
-        })
+        });
+
+        if(!result) throw new RequestError({message: 'User not found', statusCode: 409});
 
         return result;
     } catch(e) {
         console.log(e);
-        throw(e);
+        throw new RequestError(e);
     }
 }
 
@@ -99,6 +101,6 @@ export async function deleteUserService({id}: {id: string}): Promise<IUser> {
         return result;
     } catch (e) {
         console.log(e);
-        throw e;
+        throw new RequestError(e);
     }
 }
