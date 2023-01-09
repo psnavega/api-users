@@ -13,9 +13,8 @@ export async function getUsersController(req: Request, res: Response): Promise<R
         const result: IUser[] = await getUsersService();
 
         return res.status(200).send(result);
-    } catch(e) {
-        console.log(e);
-        return res.status(500).send(e);
+    } catch(error) {
+        return res.status(500).send({error});
     }
 }
 
@@ -25,43 +24,39 @@ export async function getUserController(req: Request, res: Response): Promise<Re
 
         const result: IUser = await getUserService({id});
 
-        return res.status(200).send('teste');
-    } catch(e) {
-        console.log(e);
-        return res.status(500).send(e);
+        return res.status(200).send(result);
+    } catch(error) {
+        return res.status(500).send({error});
     }
 }
 
 export async function postUserController(req: Request, res: Response): Promise<Response> {
     try{
-        const {id} = req.params;
+        const {name, dob, add, description} = req.body;
 
-        const result: IUser = await getUserService({id});
+
+
+        const result: IUser = await postUserService({name, dob, add, description});
 
         return res.status(200).send({result});
-    } catch(e) {
-        console.log(e);
-        return res.status(500).send(e);
+    } catch(error) {
+        return res.status(500).send({error});
     }
 }
 
 export async function patchUserController(req: Request, res: Response): Promise<Response> {
     try{
+        const {id} = req.params;
         const {
-            id,
             name,
             dob,
             add,
             description,
-            updatedAt,
-            createdAt,
-        } = req.params;
+        } = req.body;
 
         const result: IUser = await patchUserservice(
             {
-                id
-            }, 
-            {
+                id,
                 name,
                 dob,
                 add,
@@ -69,9 +64,8 @@ export async function patchUserController(req: Request, res: Response): Promise<
             });
 
         return res.status(200).send({result});
-    } catch(e) {
-        console.log(e);
-        return res.status(500).send(e);
+    } catch(error) {
+        return res.status(500).send({error});
     }
 }
 
@@ -82,9 +76,8 @@ export async function deleteUserController(req: Request, res: Response): Promise
         const result: IUser = await deleteUserService({id});
 
         return res.status(200).send(result);
-    } catch(e) {
-        console.log(e);
-        res.status(500).send(e);
+    } catch(error) {
+        res.status(500).send({error});
     }
 }
 
