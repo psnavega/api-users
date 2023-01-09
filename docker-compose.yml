@@ -1,10 +1,11 @@
 version: '3'
 services:
-    mongodb:
-      container_name: mongodb
+    mongo:
+      container_name: mongo
       image: mongo:4
       ports:
           - 27017:27017
+
     app:
       build: .
       command: yarn dev
@@ -16,9 +17,10 @@ services:
           - .:/src
           - nodemodules:/node_modules
       links:
-          - mongodb
+          - mongo
       depends_on: 
-          - mongodb
+          - mongo
+
 volumes:
   nodemodules: {}
 
