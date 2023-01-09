@@ -7,10 +7,21 @@ import {
 } from "@services/usersService";
 import { Request, Response } from "express";
 import { IUser } from "../interfaces/userInterface";
+import { client } from "@configs/databases/redis";
 
 export async function getUsersController(req: Request, res: Response): Promise<Response> {
     try{
-        const result: IUser[] = await getUsersService();
+        const result = await client.get('getUsers');
+
+        if(!result) {
+            const result: IUser[] = await getUsersService();
+        
+            await client.set('getCurrencies', JSON.stringify(result));
+
+			await client.expire('getCurrencies', 10);
+
+			return res.status(200).send({result});
+        }
 
         return res.status(200).send(result);
     } catch(error) {
@@ -22,7 +33,17 @@ export async function getUserController(req: Request, res: Response): Promise<Re
     try{
         const {id} = req.params;
 
-        const result: IUser = await getUserService({id});
+        const result = await client.get(`getUser${id}`);
+
+        if(!result) {
+            const result: IUser = await getUserService({id});
+
+            await client.set(`getUser${id}`, JSON.stringify(result));
+
+            await client.expire(`getUser${id}`, 10);
+
+            return res.status(200).send({result});
+        }
 
         return res.status(200).send(result);
     } catch(error) {
